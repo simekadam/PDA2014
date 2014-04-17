@@ -4,14 +4,25 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
+
+import butterknife.ButterKnife;
+import butterknife.InjectView;
+import com.squareup.picasso.Picasso;
 
 
 public class ScreenDetailActivity extends Activity {
+
+	@InjectView(R.id.screen_preview)
+	ImageView mScreenPreview;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_screen_detail);
+	    ButterKnife.inject(this);
+	    String imgUrl = getIntent().getStringExtra("screenId");
+	    Picasso.with(this).load(imgUrl).into(mScreenPreview);
     }
 
 
