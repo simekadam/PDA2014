@@ -6,6 +6,8 @@
     tools:context="cz.cvut.pda.azppro.ProjectDetailActivity">
 
    <GridView
+	   android:paddingTop="48dp"
+	   android:clipToPadding="false"
 	   android:id="@+id/screens_grid"
 	   android:numColumns="2"
 	   android:layout_width="match_parent"

@@ -9,6 +9,8 @@
     tools:context="cz.cvut.pda.azppro.MainActivity">
 
     <ListView
+	    android:paddingTop="48dp"
+	    android:clipToPadding="false"
 	    android:id="@+id/projects_list"
 	    android:layout_width="match_parent"
 	    android:layout_height="match_parent"></ListView>

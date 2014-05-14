@@ -1,6 +1,10 @@
 package cz.cvut.pda.azppro;
 
 import android.app.Activity;
+import android.app.Fragment;
+import android.app.FragmentTransaction;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -21,8 +25,8 @@ public class ScreenDetailActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_screen_detail);
 	    ButterKnife.inject(this);
-	    String imgUrl = getIntent().getStringExtra("screenId");
-	    Picasso.with(this).load(imgUrl).into(mScreenPreview);
+	    int imgUrl = getIntent().getIntExtra("screenId", 1);
+	    mScreenPreview.setImageBitmap(getDrawable(imgUrl));
     }
 
 
@@ -39,11 +43,48 @@ public class ScreenDetailActivity extends Activity {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
+        switch (item.getItemId()){
+	        case R.id.action_setup:
+		        openDialog();
+		        return true;
         }
+
         return super.onOptionsItemSelected(item);
     }
 
+	private void openDialog() {
+		new SetupDialogFragment().show(getFragmentManager(), "Setup");
+	}
+
+
+	private Bitmap getDrawable(int position){
+
+		position = position%8+1;
+		return getDrawableFromResource(position);
+
+
+
+	}
+
+	private Bitmap getDrawableFromResource(int position){
+		switch (position){
+			case 1:
+
+				return ((BitmapDrawable)getResources().getDrawable(R.drawable.s1)).getBitmap();
+			case 2:
+				return ((BitmapDrawable)getResources().getDrawable(R.drawable.s2)).getBitmap();
+			case 3:
+				return ((BitmapDrawable)getResources().getDrawable(R.drawable.s3)).getBitmap();
+			case 4:
+				return ((BitmapDrawable)getResources().getDrawable(R.drawable.s4)).getBitmap();
+			case 5:
+				return ((BitmapDrawable)getResources().getDrawable(R.drawable.s5)).getBitmap();
+			case 6:
+				return ((BitmapDrawable)getResources().getDrawable(R.drawable.s6)).getBitmap();
+			case 7:
+				return ((BitmapDrawable)getResources().getDrawable(R.drawable.s7)).getBitmap();
+			default:
+				return ((BitmapDrawable)getResources().getDrawable(R.drawable.s7)).getBitmap();
+		}
+	}
 }
