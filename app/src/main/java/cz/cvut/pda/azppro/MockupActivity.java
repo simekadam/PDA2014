@@ -19,7 +19,7 @@ public class MockupActivity extends Activity{
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.mockupActivity);
+//		setContentView(R.layout.mockupActivity);
 		Bundle extras = getIntent().getExtras();
 		int projectId = extras.getInt(KEY_PROJECT);
 		int screenId = extras.getInt(KEY_SCREEN);
@@ -29,7 +29,6 @@ public class MockupActivity extends Activity{
 
 	private void init(){
 
-		for()
 
 	}
 }

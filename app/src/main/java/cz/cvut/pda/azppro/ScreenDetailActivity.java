@@ -8,6 +8,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 
 import butterknife.ButterKnife;
@@ -19,6 +20,8 @@ public class ScreenDetailActivity extends Activity {
 
 	@InjectView(R.id.screen_preview)
 	ImageView mScreenPreview;
+	@InjectView(R.id.rectangle)
+	RedRectangleView mRectangle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +29,9 @@ public class ScreenDetailActivity extends Activity {
         setContentView(R.layout.activity_screen_detail);
 	    ButterKnife.inject(this);
 	    int imgUrl = getIntent().getIntExtra("screenId", 1);
+
+	    setTitle("Screen "+String.valueOf(imgUrl));
+
 	    mScreenPreview.setImageBitmap(getDrawable(imgUrl));
     }
 
@@ -44,13 +50,26 @@ public class ScreenDetailActivity extends Activity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         switch (item.getItemId()){
-	        case R.id.action_setup:
-		        openDialog();
+//	        case R.id.action_setup:
+//		        openDialog();
+//		        return true;
+	        case R.id.action_add:
+		        addActionArea();
 		        return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
+
+	private void addActionArea() {
+		mRectangle.setVisibility(View.VISIBLE);
+		mRectangle.addOnActionAreaClickListener(new RedRectangleView.OnActiveAreaClickListener() {
+			@Override
+			public void onActiveAreaClicked() {
+				openDialog();
+			}
+		});
+	}
 
 	private void openDialog() {
 		new SetupDialogFragment().show(getFragmentManager(), "Setup");
@@ -65,6 +84,9 @@ public class ScreenDetailActivity extends Activity {
 
 
 	}
+
+
+
 
 	private Bitmap getDrawableFromResource(int position){
 		switch (position){
